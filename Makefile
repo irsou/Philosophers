@@ -12,21 +12,24 @@
 
 NAME = philo
 
-SRC = main.c \
+SRC = src/main.c \
+      src/validate_args.c \
+      src/clean_data.c \
+      src/aux_functions.c
 
 OBJ = $(SRC:.c=.o)
 
 CC = cc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -Iincludes
 RM = rm -f
-
-%.o: %.c push_swap.h
-	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME) 
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+
+src/%.o: src/%.c includes/philo.h
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)
@@ -36,4 +39,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:	all clean fclean re bonus
+.PHONY: all clean fclean re
