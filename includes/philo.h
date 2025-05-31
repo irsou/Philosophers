@@ -15,6 +15,8 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <sys/time.h>  //gettimeofday
 
 typedef struct s_data
 {
@@ -47,4 +49,14 @@ int		init_data(t_data *data, char **argv, int argc);
 int		ft_atoi(const char *str);
 void	cleanup_all(t_philo *philos, t_data *data);
 void	*ft_memset(void *ptr, int value, size_t length);
+int		init_mutexes(t_data *data);
+void	*philosopher_routine(void *arg);
+int		start_threads(t_philo *philos);
+long	get_time(void);
+int		check_death(t_philo *philo);
+void	print_status(t_philo *philo, char *status);
+void	cleanup_mutexes(t_data *data);
+t_philo	*init_philos(t_data *data);
+void	track(t_philo *philos);
+
 #endif

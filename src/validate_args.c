@@ -16,7 +16,9 @@ t_philo	*init_philos(t_data *data)
 {
 	t_philo	*philos;
 	int		i;
+	long	start_time;
 
+	start_time = get_time();
 	philos = malloc(sizeof(t_philo) * data->philo_num);
 	if (!philos)
 		return (NULL);
@@ -25,7 +27,7 @@ t_philo	*init_philos(t_data *data)
 	{
 		philos[i].id = i + 1;
 		philos[i].eat_count = 0;
-		philos[i].last_meal = 0;
+		philos[i].last_meal = start_time;
 		philos[i].data = data;
 		philos[i].left_fork = &data->forks[i];
 		philos[i].right_fork = &data->forks[(i + 1) % data->philo_num];
