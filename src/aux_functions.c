@@ -12,6 +12,22 @@
 
 #include "philo.h"
 
+size_t	ft_strlen(const char *str)
+{
+	size_t		position;
+
+	position = 0;
+	while (str[position] != '\0')
+		position ++;
+	return (position);
+}
+
+int	print_error(const char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+	return (1);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		result;

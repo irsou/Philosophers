@@ -44,6 +44,8 @@ typedef struct s_philo
 }	t_philo;
 
 //FUNCTIONS
+size_t	ft_strlen(const char *str);
+int		print_error(const char *msg);
 int		validate_args(int argc, char **argv);
 int		init_data(t_data *data, char **argv, int argc);
 int		ft_atoi(const char *str);

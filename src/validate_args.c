@@ -50,22 +50,17 @@ int	init_data(t_data *data, char **argv, int argc)
 		data->eat_num = -1;
 	if (data->philo_num <= 0 || data->die_time <= 0
 		|| data->eat_time <= 0 || data->sleep_time <= 0)
-	{
-		write(2, "Error: All values must be positive\n", 35);
-		return (0);
-	}
+		return (print_error("Error: All values must be positive\n"));
 	if (argc == 6 && data->eat_num <= 0)
-	{
-		write(2, "Error: Number of meals must be positive\n", 40);
-		return (0);
-	}
-	return (1);
+		return (print_error("Error: Number of meals must be positive\n"));
+	return (0);
 }
 
 int	validate_args(int argc, char **argv)
 {
 	int		i;
 	int		j;
+	long	value;
 
 	i = 1;
 	while (i < argc)
@@ -83,6 +78,12 @@ int	validate_args(int argc, char **argv)
 		if (j == 0)
 		{
 			write(2, "Error: Empty argument\n", 22);
+			return (0);
+		}
+		value = atol(argv[i]);
+		if (value <= 0 || value > 2147483647)
+		{
+			write(2, "Error: Argument out of valid integer range\n", 44);
 			return (0);
 		}
 		i++;
