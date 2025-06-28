@@ -52,3 +52,10 @@ void	cleanup_all(t_philo *philos, t_data *data)
 	cleanup_mutexes(data);
 	cleanup_philosophers(philos, data->philo_num);
 }
+
+void	end_simulation(t_philo *philos)
+{
+	pthread_mutex_lock(&philos[0].data->dead_mutex);
+	philos[0].data->dead = 1;
+	pthread_mutex_unlock(&philos[0].data->dead_mutex);
+}

@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *str)
 int	print_error(const char *msg)
 {
 	write(2, msg, ft_strlen(msg));
-	return (1);
+	return (0);
 }
 
 int	ft_atoi(const char *str)

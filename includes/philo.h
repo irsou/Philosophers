@@ -60,5 +60,10 @@ void	print_status(t_philo *philo, char *status);
 void	cleanup_mutexes(t_data *data);
 t_philo	*init_philos(t_data *data);
 void	track(t_philo *philos);
+int		check_death(t_philo *philo);
+int		check_philo_death(t_philo *philo, long start_time);
+int		check_all_fed(t_philo *philos);
+void	print_status(t_philo *philo, char *status);
+void	end_simulation(t_philo *philos);
 
 #endif

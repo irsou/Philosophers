@@ -12,13 +12,14 @@
 
 NAME = philo
 
-SRC = src/actions.c \
-	src/aux_functions.c \
+SRC = src/aux_functions.c \
 	src/clean_data.c \
-	src/init_mutexes.c \
+	src/init.c \
 	src/main.c \
-	src/start_threads.c \
+	src/threads.c \
 	src/tracking.c \
+	src/tracking_aux.c \
+	src/utils.c \
 	src/validate_args.c \
 
 OBJ = $(SRC:.c=.o)

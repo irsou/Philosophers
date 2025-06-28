@@ -12,80 +12,53 @@
 
 #include "philo.h"
 
-t_philo	*init_philos(t_data *data)
+int	is_valid_number_string(const char *str)
 {
-	t_philo	*philos;
-	int		i;
-	long	start_time;
+	int	j;
 
-	start_time = get_time();
-	philos = malloc(sizeof(t_philo) * data->philo_num);
-	if (!philos)
-		return (NULL);
-	i = 0;
-	while (i < data->philo_num)
+	if (!str)
+		return (0);
+	j = 0;
+	while (str[j])
 	{
-		philos[i].id = i + 1;
-		philos[i].eat_count = 0;
-		philos[i].last_meal = start_time;
-		philos[i].data = data;
-		philos[i].left_fork = &data->forks[i];
-		philos[i].right_fork = &data->forks[(i + 1) % data->philo_num];
-		pthread_mutex_init(&philos[i].mealtime_mutex, NULL);
-		i++;
+		if (str[j] < '0' || str[j] > '9')
+			return (0);
+		j++;
 	}
-	return (philos);
+	return (j > 0);
 }
 
-int	init_data(t_data *data, char **argv, int argc)
+int	is_valid_range(const char *str)
 {
-	data->philo_num = ft_atoi(argv[1]);
-	data->die_time = ft_atoi(argv[2]);
-	data->eat_time = ft_atoi(argv[3]);
-	data->sleep_time = ft_atoi(argv[4]);
-	data->dead = 0;
-	if (argc == 6)
-		data->eat_num = ft_atoi(argv[5]);
-	else
-		data->eat_num = -1;
-	if (data->philo_num <= 0 || data->die_time <= 0
-		|| data->eat_time <= 0 || data->sleep_time <= 0)
-		return (print_error("Error: All values must be positive\n"));
-	if (argc == 6 && data->eat_num <= 0)
-		return (print_error("Error: Number of meals must be positive\n"));
-	return (0);
+	long	value;
+
+	value = atol(str);
+	return (value > 0 && value <= 2147483647);
+}
+
+int	validate_single_arg(const char *arg)
+{
+	if (!is_valid_number_string(arg))
+	{
+		if (arg && arg[0] == '\0')
+			return (print_error("Error: Empty argument\n"));
+		else
+			return (print_error("Error: Arguments must be positive numbers\n"));
+	}
+	if (!is_valid_range(arg))
+		return (print_error("Error: Argument out of valid integer range\n"));
+	return (1);
 }
 
 int	validate_args(int argc, char **argv)
 {
-	int		i;
-	int		j;
-	long	value;
+	int	i;
 
 	i = 1;
 	while (i < argc)
 	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-			{
-				write(2, "Error: Arguments must be positive numbers\n", 42);
-				return (0);
-			}
-			j++;
-		}
-		if (j == 0)
-		{
-			write(2, "Error: Empty argument\n", 22);
+		if (!validate_single_arg(argv[i]))
 			return (0);
-		}
-		value = atol(argv[i]);
-		if (value <= 0 || value > 2147483647)
-		{
-			write(2, "Error: Argument out of valid integer range\n", 44);
-			return (0);
-		}
 		i++;
 	}
 	return (1);

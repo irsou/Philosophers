@@ -16,7 +16,7 @@ int	execute_philosophers(t_data *data, t_philo **philos, int argc, char **argv)
 {
 	int	i;
 
-	if (validate_args(argc, argv) || init_data(data, argv, argc))
+	if (!validate_args(argc, argv) || !init_data(data, argv, argc))
 		return (1);
 	if (!init_mutexes(data))
 		return (print_error("Error: Failed to initialize mutexes\n"));
