@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 10:34:35 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/06/28 10:12:44 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/06/28 12:04:14 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ t_philo	*init_philos(t_data *data)
 {
 	t_philo	*philos;
 	int		i;
-	long	start_time;
 
-	start_time = get_time();
 	philos = malloc(sizeof(t_philo) * data->philo_num);
 	if (!philos)
 		return (NULL);
@@ -27,7 +25,7 @@ t_philo	*init_philos(t_data *data)
 	{
 		philos[i].id = i + 1;
 		philos[i].eat_count = 0;
-		philos[i].last_meal = start_time;
+		philos[i].last_meal = data->start_time;
 		philos[i].data = data;
 		philos[i].left_fork = &data->forks[i];
 		philos[i].right_fork = &data->forks[(i + 1) % data->philo_num];
@@ -43,6 +41,7 @@ int	init_data(t_data *data, char **argv, int argc)
 	data->die_time = ft_atoi(argv[2]);
 	data->eat_time = ft_atoi(argv[3]);
 	data->sleep_time = ft_atoi(argv[4]);
+	data->start_time = get_time();
 	data->dead = 0;
 	if (argc == 6)
 		data->eat_num = ft_atoi(argv[5]);
